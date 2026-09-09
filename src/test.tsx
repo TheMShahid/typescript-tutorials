@@ -1,16 +1,25 @@
-console.log("Started Typescript Toturials on Date: 09 - 09 - 2026");
+// Type Annotation
+const stringValue: string = "string_valu";
+console.log(stringValue);
 
-// Type safety
-interface interfaceOfObject {
-  name: string;
-  id: number;
-  status: boolean;
-}
+const numberValue: number = 20;
+console.log(numberValue);
 
-const realObject: interfaceOfObject = {
-  name: "shahid",
-  id: 29,
-  status: true,
-};
+const boolValue: boolean = false;
+console.log(boolValue);
 
-console.log(realObject);
+// Type annotation inffered
+const someValueTwo = "string";
+console.log(someValueTwo);
+
+// Challenge
+const name: string = "shahid";
+console.log(name.toUpperCase());
+
+const number: number = 20;
+const newNumber = number + 20;
+console.log(newNumber);
+
+const boolType: boolean = false;
+const updatedBoolValue = !boolType;
+console.log(updatedBoolValue);
