@@ -106,3 +106,54 @@ let products: { name: string; price?: number }[] = [product1, product2];
 let product11 = { name: "pen", price: 11 };
 let product22 = { name: "chair" };
 let products33: { name: string; price?: number }[] = [product11, product22];
+
+// Functions parameters and functions returns
+function sayHi(name: string | number | boolean) {
+  return console.log(`hi everyone ${name}`);
+}
+
+// any
+// config
+// type
+
+sayHi("shahid");
+sayHi(29);
+sayHi(true);
+
+// functions returns type
+function calculateDistcount(price: number): number {
+  let valiedPrice = true;
+  if (valiedPrice) {
+    return price - 2;
+    // return "thank you";
+  }
+  return price * 2;
+}
+
+const result1 = calculateDistcount(10);
+console.log(result1);
+
+// function addTwo(number: number) {
+function addTwo(number: any) {
+  let anotherTwo: number = 2;
+  return number + anotherTwo;
+}
+
+const result = addTwo(2);
+const someValuesAdd = result;
+
+someValuesAdd.myMethod();
+
+const names: string[] = ["khan", "ahmad", "zahid"];
+
+function isNameInList(name: string): boolean {
+  return names.includes(name);
+}
+
+let nameToCheck = "khan";
+
+if (isNameInList(nameToCheck)) {
+  console.log(`${nameToCheck} is in the list`);
+} else {
+  console.log(`${nameToCheck} is not the list`);
+}
