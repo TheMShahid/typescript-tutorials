@@ -157,3 +157,87 @@ if (isNameInList(nameToCheck)) {
 } else {
   console.log(`${nameToCheck} is not the list`);
 }
+
+// Default and rest parameters
+
+function CalculatePrice(price: number, discount?: number): number {
+  return price - (discount || 0);
+}
+
+const result2 = calculateDistcount(10, 4);
+
+function calculateScore(
+  initialScore: number,
+  penaltyPoint: number = 10,
+): number {
+  return initialScore - penaltyPoint;
+}
+
+const result3 = calculateScore(10);
+
+function sumRestParameters(message: string, ...numbers: number[]): string {
+  const double = numbers.map((num) => num * 2);
+  console.log(double);
+
+  const total = numbers.reduce((curr, acc) => {
+    return curr + acc;
+  }, 0);
+  return `${message} ${total}`;
+}
+
+let result4 = sumRestParameters("The total is: ", 1, 3, 4, 5);
+
+function logMessage(message: string): void {
+  console.log(message);
+  // return 'hello world'
+  // if your function isn't return anything then use :void otherwise left it
+}
+
+function processInput(input: string | number) {
+  if (typeof input === "string") {
+    return input.toUpperCase();
+  } else {
+    console.log(input * 2);
+  }
+}
+
+function checkEven({ id }: { id: number }): { id: number; isActive: boolean } {
+  return {
+    id,
+    isActive: id % 2 === 0,
+  };
+}
+
+const first1 = checkEven({ id: 1 });
+const second2 = checkEven({ id: 2 });
+
+// alternative
+function createStudent(student: { id: number; name: string }) {
+  console.log(`Welcome to the course ${student.name}`);
+}
+
+const newStudent = {
+  id: 2,
+  name: "shahid",
+  email: "somthing@abc",
+};
+
+createStudent(newStudent);
+// createStudent({id:3, name:'khan', email:'something@aaa'})
+
+function processData(
+  input: number | string,
+  config: { reverse: boolean } = { reverse: false },
+): string | number {
+  if (typeof input === "number") {
+    return input * input;
+  } else {
+    return config.reverse
+      ? input.toUpperCase().split("").reverse().join("")
+      : input.toUpperCase();
+  }
+}
+
+console.log(processData(10));
+console.log(processData("hi"));
+console.log(processData("hi", { reverse: true }));
