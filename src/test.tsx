@@ -483,3 +483,127 @@ const manager: Manager1 = {
 };
 
 manager.managePeople();
+
+// Challenge
+function getEmployee(): Person1 | DogOwner1 | Manager1 {
+  const random = Math.random();
+
+  if (random < 0.33) {
+    return {
+      name: "person1",
+    };
+  } else if (random < 0.66) {
+    return {
+      name: "person2",
+      dogName: "dogname",
+    };
+  } else {
+    return {
+      name: "person3",
+      managePeople() {
+        console.log("managing people...");
+      },
+      delegateTasks() {
+        console.log("delegating tasks...");
+      },
+    };
+  }
+}
+
+interface Person1 {
+  name: string;
+}
+
+interface DogOwner1 extends Person1 {
+  dogName: string;
+}
+
+interface Manager1 extends Person1 {
+  managePeoples(): void;
+  delegateTasks(): void;
+}
+
+const employee2: Person1 | DogOwner1 | Manager1 = getEmployee();
+// console.log(employee2);
+
+// function isManager(obj: Person1 | DogOwner1 | Manager1): boolean {
+function isManager(obj: Person1 | DogOwner1 | Manager1): obj is Manager1 {
+  // return typeof obj === "object";
+  return "managePeople" in obj;
+}
+
+console.log(isManager(employee2));
+
+if (isManager(employee2)) {
+  employee2.delegateTasks();
+}
+
+// Tuples and Enums
+let person: [string, number] = ["shahid", 29];
+
+// const date: [number, number, number] = [0, 0, 0];
+const date: readonly [number, number, number] = [0, 0, 0];
+
+function getPerson(): [string, number] {
+  return ["a", 29];
+}
+
+let randomPerson = getPerson();
+console.log(randomPerson[0]);
+console.log(randomPerson[1]);
+
+let gulina: [number, string?] = [0];
+
+// Enums
+enum ServerResponseStatus {
+  Success = 200,
+  Error = 500,
+}
+
+Object.values(ServerResponseStatus).forEach((value) => {
+  // console.log(value);
+  if (typeof value === "number") {
+    console.log(value);
+  }
+});
+
+interface ServerResponse {
+  result: ServerResponseStatus;
+  data: string[];
+}
+
+function getServerResponse(): ServerResponse {
+  return {
+    result: ServerResponseStatus.Success,
+    data: ["a", "b", "c"],
+  };
+}
+
+const response: ServerResponse = getServerResponse();
+console.log(response);
+
+enum UserRole {
+  Admin,
+  Manager,
+  Employee,
+}
+
+type User1 = {
+  id: number;
+  name: string;
+  role: UserRole;
+  contact: [string, string];
+};
+
+function createUser1(user: User1): User1 {
+  return user;
+}
+
+const user: User1 = createUser1({
+  id: 2,
+  name: "user1",
+  role: UserRole.Admin,
+  contact: ["shahidlanger0@gmail.com", "123-456-780"],
+});
+
+console.log(user);
