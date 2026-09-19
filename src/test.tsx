@@ -241,3 +241,245 @@ function processData(
 console.log(processData(10));
 console.log(processData("hi"));
 console.log(processData("hi", { reverse: true }));
+
+// Type alias and intersection type
+
+const shahid: { id: number; name: string; gradu: boolean } = {
+  id: 1,
+  name: "shahid",
+  gradu: true,
+};
+
+const khan: { id: number; name: string; gradu: boolean } = {
+  id: 2,
+  name: "khan",
+  gradu: false,
+};
+
+function createUser(user: { id: number; name: string; gradu: boolean }): {
+  id: number;
+  name: string;
+  gradu: boolean;
+} {
+  `Hello there ${user.name.toUpperCase()} !!!`;
+  return user;
+}
+
+type User = { id: number; name: string; gradu: boolean };
+
+const ali: User = {
+  id: 2,
+  name: "ali",
+  gradu: true,
+};
+
+const ahmad: User = {
+  id: 3,
+  name: "ahmad",
+  gradu: false,
+};
+
+function createRandomUser(user: User): User {
+  console.log(`Hello ${user.name.toUpperCase()} !!!`);
+  return user;
+}
+
+type stringOrNumber = string | number;
+
+let onlyNumberAndString: stringOrNumber;
+onlyNumberAndString = "shahid";
+onlyNumberAndString = 10;
+// onlyNumberAndString = true
+
+type Theme = "light" | "dark" | "systemDefault";
+
+let theme: Theme;
+theme = "dark";
+theme = "systemDefault";
+
+function setTheme(t: Theme) {
+  theme = t;
+}
+
+setTheme("dark");
+
+type Employee = { id: number; name: string; department: string };
+type Manager = { id: number; name: string; employees: Employee[] };
+
+type Staff = Employee | Manager;
+
+const zahid: Employee = { id: 1, name: "zahid", department: "sales" };
+const nida: Employee = { id: 1, name: "nida", department: "HR" };
+
+const amir: Manager = { id: 1, name: "amir", employees: [zahid, nida] };
+
+function printStaffDetails(staff: Staff): void {
+  if ("employees" in staff) {
+    console.log(
+      `${staff.name} is an manager in the ${staff.employees.length} employees`,
+    );
+  } else {
+    console.log(`${staff.name} is an employee in the ${staff.department}`);
+  }
+}
+
+printStaffDetails(zahid);
+printStaffDetails(amir);
+
+type Laptop = { name: string; color: string; model: number };
+
+const dell: Laptop = {
+  name: "dell",
+  color: "grey",
+  model: 2022,
+};
+
+const hp: Laptop = {
+  name: "hp",
+  color: "black",
+  model: 2023,
+};
+
+type PriceBook = Laptop & { price: number };
+
+const macbookPro: PriceBook = {
+  name: "mac",
+  color: "white",
+  model: 2011,
+  price: 29000,
+};
+
+// type alias
+const propName = "age";
+
+type Animal = {
+  [propName]: number;
+};
+
+const tiger: Animal = { [propName]: 10 };
+
+// Interface
+
+interface Book {
+  readonly isbn: number;
+  name: string;
+  author: string;
+  genre?: string;
+  // method
+  printAuthor(): void;
+  printTitle(message: string): string;
+  printSomeValue: (someValue: number) => number;
+}
+
+const book1: Book = {
+  isbn: 123,
+  name: "book1",
+  author: "khan",
+  // genre:'genre'
+  printAuthor() {
+    console.log(this.author);
+  },
+  printTitle(message) {
+    return `${this.author} ${message}`;
+  },
+  // option 1
+  // printSomeValue: function (value) {
+  //   return value;
+  // },
+  // option 2
+  // printSomeValue: (value) => {
+  //   // console.log(this);
+  //   console.log(book1.author);
+
+  //   return value;
+  // },
+  // option 3
+  printSomeValue(value) {
+    return value;
+  },
+  // printAuthor: () => {
+  //   return book1.author;
+  // },
+};
+
+// book1.isbn = 29
+
+interface Computer {
+  readonly id: number;
+  brand: string;
+  name: string;
+  ram: number;
+  storage?: number;
+  // method
+  upgradeRam(number: number): number;
+}
+
+const laptop2: Computer = {
+  id: 122,
+  name: "dell",
+  brand: "dell",
+  ram: 8,
+  upgradeRam(value) {
+    this.ram += value;
+    return this.ram;
+  },
+};
+
+laptop2.storage = 255;
+
+// Advance interface (merge and textends (single interface or multiple) interfaces)
+interface Person {
+  name: string;
+  getDetails(): string;
+}
+
+interface dogOwner {
+  dogName: string;
+  getDogDetails(): string;
+}
+
+interface Person {
+  age: number;
+}
+
+const person: Person = {
+  name: "shahid",
+  age: 29,
+  getDetails() {
+    return `name: ${this.name} and age: ${this.age}`;
+  },
+};
+
+interface Employee1 extends Person {
+  employeeId: number;
+}
+
+const employee: Employee1 = {
+  name: "employee",
+  age: 23,
+  employeeId: 2,
+  getDetails() {
+    return `Name: ${this.name} and Age: ${this.age}, EmployeeId: ${this.employeeId}`;
+  },
+};
+
+interface Manager1 extends Person, dogOwner {
+  managePeople(): void;
+}
+
+const manager: Manager1 = {
+  name: "zahid",
+  age: 29,
+  getDetails() {
+    return `Name: ${this.name}, Age: ${this.age}`;
+  },
+  dogName: "zalmi",
+  getDogDetails() {
+    return `Name: ${this.dogName}`;
+  },
+  managePeople() {
+    console.log("managing people...");
+  },
+};
+
+manager.managePeople();
